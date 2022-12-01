@@ -53,31 +53,6 @@ int main(int argc, char ** argv){
 
     std::cout << "The input filename is - " << inputFilename << std::endl;
         
-    // Initialize LIKWID Marker API
-    LIKWID_MARKER_INIT;
-
-    // Add each thread to the marker API
-    #pragma omp parallel
-    {
-        // ID of the thread in the current team
-        int thread_id = omp_get_thread_num();
-        // Number of threads in the current team
-        int nthreads = omp_get_num_threads();
-
-    #pragma omp critical
-        {
-            std::cout << "Hello world, I'm thread " << thread_id << " out of " << nthreads << " total threads. " << std::endl; 
-        }
-
-        // Each thread must add itself to the Marker API, therefore must be
-        // in parallel region
-        LIKWID_MARKER_THREADINIT;
-        // Register region name
-        LIKWID_MARKER_REGISTER(MY_MARKER_REGION_NAME);
-    }
-
-
-
     // Read file and store the data in vectors
     // std::vector<std::vector<std::string>> allStrings;
     std::vector<std::string> allStrings;
@@ -104,6 +79,30 @@ int main(int argc, char ** argv){
     int numStrings = allStrings.size();
 
     std::map<std::string, int> wordMap;
+
+
+    // Initialize LIKWID Marker API
+    LIKWID_MARKER_INIT;
+
+    // Add each thread to the marker API
+    #pragma omp parallel
+    {
+        // ID of the thread in the current team
+        int thread_id = omp_get_thread_num();
+        // Number of threads in the current team
+        int nthreads = omp_get_num_threads();
+
+    #pragma omp critical
+        {
+            std::cout << "Hello world, I'm thread " << thread_id << " out of " << nthreads << " total threads. " << std::endl; 
+        }
+
+        // Each thread must add itself to the Marker API, therefore must be
+        // in parallel region
+        LIKWID_MARKER_THREADINIT;
+        // Register region name
+        LIKWID_MARKER_REGISTER(MY_MARKER_REGION_NAME);
+    }
 
 
     // Record Start Time
