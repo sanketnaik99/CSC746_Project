@@ -112,7 +112,7 @@ int main(int argc, char ** argv){
     {
         LIKWID_MARKER_START(MY_MARKER_REGION_NAME);
 
-        #pragma omp parallel for
+        #pragma omp for
         for (int i = 0; i < numStrings; i++){
         std::istringstream iss(allStrings[i]);
         std::string word;
