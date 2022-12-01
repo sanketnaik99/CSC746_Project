@@ -149,6 +149,7 @@ int main(int argc, char ** argv){
 
     // Close Marker API and write results to file for further evaluation done
     // by likwid-perfctr
+    std::cout << "Closing LIKWID MARKER" << std::endl;
     LIKWID_MARKER_CLOSE;
 
     return 0;
