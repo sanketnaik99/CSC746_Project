@@ -8,6 +8,7 @@
 #include <iterator>
 #include <map>
 #include <omp.h>
+#include "likwid-stuff.h"
 
 
 void getStats(std::map<std::string, int>& M)
