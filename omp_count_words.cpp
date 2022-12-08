@@ -80,38 +80,11 @@ int main(int argc, char ** argv){
 
     std::map<std::string, int> wordMap;
 
-
-    // Initialize LIKWID Marker API
-    // LIKWID_MARKER_INIT;
-
-    // // Add each thread to the marker API
-    // #pragma omp parallel
-    // {
-    //     // ID of the thread in the current team
-    //     int thread_id = omp_get_thread_num();
-    //     // Number of threads in the current team
-    //     int nthreads = omp_get_num_threads();
-
-    // #pragma omp critical
-    //     {
-    //         std::cout << "Hello world, I'm thread " << thread_id << " out of " << nthreads << " total threads. " << std::endl; 
-    //     }
-
-    //     // Each thread must add itself to the Marker API, therefore must be
-    //     // in parallel region
-    //     LIKWID_MARKER_THREADINIT;
-    //     // Register region name
-    //     LIKWID_MARKER_REGISTER(MY_MARKER_REGION_NAME);
-    // }
-
-
     // Record Start Time
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time = std::chrono::high_resolution_clock::now();
 
     #pragma omp parallel
     {
-        // LIKWID_MARKER_START(MY_MARKER_REGION_NAME);
-
         #pragma omp for
         for (int i = 0; i < numStrings; i++){
         std::istringstream iss(allStrings[i]);
@@ -131,8 +104,6 @@ int main(int argc, char ** argv){
             }
 
         }
-
-        // LIKWID_MARKER_STOP(MY_MARKER_REGION_NAME);
     }
 
 
@@ -145,11 +116,6 @@ int main(int argc, char ** argv){
     getStats(wordMap);
 
     std::cout << "\n Elapsed time is : " << elapsed.count() << std::setprecision(8) << " " << std::endl;
-
-    // Close Marker API and write results to file for further evaluation done
-    // by likwid-perfctr
-    // std::cout << "Closing LIKWID MARKER" << std::endl;
-    // LIKWID_MARKER_CLOSE;
 
     return 0;
 }
