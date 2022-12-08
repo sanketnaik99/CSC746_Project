@@ -79,6 +79,8 @@ int main(int argc, char ** argv){
     int numStrings = allStrings.size();
 
     std::map<std::string, int> wordMap;
+    
+    std::map<int, int> threadWorkCount;
 
     // Record Start Time
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time = std::chrono::high_resolution_clock::now();
@@ -87,19 +89,27 @@ int main(int argc, char ** argv){
     {
         #pragma omp for
         for (int i = 0; i < numStrings; i++){
-        std::istringstream iss(allStrings[i]);
-        std::string word;
+            std::istringstream iss(allStrings[i]);
+            std::string word;
 
-        while (iss >> word){
-            // std::cout << word << std::endl;
-            
-            std::map<std::string, int>::iterator it = wordMap.find(word); 
-
-            if (it == wordMap.end()){
-                wordMap.insert(std::pair<std::string, int>(word, 1));
-            }else{
+            int thread_id = omp_get_thread_num();
+            std::map<int, int>::iterator it = threadWorkCount.find(thread_id);
+            if (it == threadWorkCount.end()){
+                threadWorkCount.insert({thread_id, 1});
+            } else{
                 it->second = it->second + 1;
             }
+
+            while (iss >> word){
+                // std::cout << word << std::endl;
+                
+                std::map<std::string, int>::iterator it = wordMap.find(word); 
+
+                if (it == wordMap.end()){
+                    wordMap.insert(std::pair<std::string, int>(word, 1));
+                } else{
+                    it->second = it->second + 1;
+                }
 
             }
 
@@ -116,6 +126,14 @@ int main(int argc, char ** argv){
     getStats(wordMap);
 
     std::cout << "\n Elapsed time is : " << elapsed.count() << std::setprecision(8) << " " << std::endl;
+
+    std::cout << "\n\nWork Done by Threads - " << std::endl;
+    auto it = threadWorkCount.begin();
+    while (it != threadWorkCount.end()) {
+        std::cout << "Thread ID - " << it->first << " | Total Number of lines - "
+             << it->second << std::endl;
+        it++;
+    }
 
     return 0;
 }
