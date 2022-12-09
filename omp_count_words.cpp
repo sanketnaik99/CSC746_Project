@@ -92,29 +92,32 @@ int main(int argc, char ** argv){
     {
         #pragma omp for
         for (int i = 0; i < numStrings; i++){
-            std::string word;
+            try {
+                std::string word;
+                int thread_id = omp_get_thread_num();
+                std::vector<std::string> result;
+                boost::split(result, allStrings[i], boost::is_any_of(" "));
+                for (int i = 0; i < result.size(); i++) {
+                    word = result[i];
+                    std::map<std::string, int>::iterator it = wordMap.find(word); 
 
-            int thread_id = omp_get_thread_num();
-            std::vector<std::string> result;
-            boost::split(result, allStrings[i], boost::is_any_of(" "));
-            for (int i = 0; i < result.size(); i++) {
-                word = result[i];
-                std::map<std::string, int>::iterator it = wordMap.find(word); 
+                    if (it == wordMap.end()){
+                        wordMap.insert(std::pair<std::string, int>(word, 1));
+                    } else{
+                        it->second = it->second + 1;
+                    }
 
-                if (it == wordMap.end()){
-                    wordMap.insert(std::pair<std::string, int>(word, 1));
-                } else{
-                    it->second = it->second + 1;
+                    // Calculate the work done by each thread
+                    std::map<int, int>::iterator it2 = threadWorkCount.find(thread_id);
+                    if (it2 == threadWorkCount.end()){
+                        threadWorkCount.insert({thread_id, 1});
+                    } else{
+                        it2->second = it2->second + 1;
+                    }
+
                 }
-
-                // Calculate the work done by each thread
-                // std::map<int, int>::iterator it2 = threadWorkCount.find(thread_id);
-                // if (it2 == threadWorkCount.end()){
-                //     threadWorkCount.insert({thread_id, 1});
-                // } else{
-                //     it2->second = it2->second + 1;
-                // }
-
+            } catch (...) {
+                cout << "Unknown exception at line - " << allStrings[i] << std::endl; 
             }
 
         }
