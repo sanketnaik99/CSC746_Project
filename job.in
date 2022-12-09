@@ -1,0 +1,16 @@
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+export OMP_SCHEDULE=static
+# export OMP_SCHEDULE=dynamic
+
+for t in 1 2 4 8 16
+    do
+    for FILE in ../data/*
+        do
+        export OMP_NUM_THREADS=$t
+        echo "Current Number of Threads = $t"
+        echo "Current Dataset File = $FILE" 
+        srun -n 1  ./omp_count_words
+    done 
+done
