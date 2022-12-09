@@ -92,12 +92,11 @@ int main(int argc, char ** argv){
     {
         #pragma omp for
         for (int i = 0; i < numStrings; i++){
-            std::stringstream iss(allStrings[i]);
             std::string word;
 
             int thread_id = omp_get_thread_num();
             std::vector<std::string> result;
-            boost::split(result, input, boost::is_any_of(" "));
+            boost::split(result, allStrings[i], boost::is_any_of(" "));
             for (int i = 0; i < result.size(); i++) {
                 word = result[i];
                 std::map<std::string, int>::iterator it = wordMap.find(word); 
