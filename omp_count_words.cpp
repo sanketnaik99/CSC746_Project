@@ -9,6 +9,7 @@
 #include <map>
 #include <omp.h>
 #include "likwid-stuff.h"
+#include <cstring>
 
 
 void getStats(std::map<std::string, int>& M)
@@ -91,13 +92,12 @@ int main(int argc, char ** argv){
     {
         #pragma omp for
         for (int i = 0; i < numStrings; i++){
-            std::istringstream iss(allStrings[i]);
+            std::stringstream iss(allStrings[i]);
             std::string word;
 
             int thread_id = omp_get_thread_num();
 
-            do{
-                iss >> word;
+            while (getline(iss, word, ' ')) {
 
                 std::map<std::string, int>::iterator it = wordMap.find(word); 
 
@@ -115,7 +115,7 @@ int main(int argc, char ** argv){
                     it2->second = it2->second + 1;
                 }
 
-            } while (iss);
+            }
 
         }
     }
