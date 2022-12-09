@@ -117,7 +117,7 @@ int main(int argc, char ** argv){
 
                 }
             } catch (...) {
-                cout << "Unknown exception at line - " << allStrings[i] << std::endl; 
+                std::cout << "Unknown exception at line - " << allStrings[i] << std::endl; 
             }
 
         }
