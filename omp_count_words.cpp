@@ -133,11 +133,9 @@ int main(int argc, char ** argv){
 
     std::cout << "\n\nWork Done by Threads - " << std::endl;
 
-    auto it = threadWorkCount.begin();
-    while (it != threadWorkCount.end()) {
-        std::cout << "Thread ID - " << it->first << " | Total Number of words - "
-             << it->second << std::endl;
-        it++;
+    for (auto const &t: threadWorkCount) {
+        std::cout << "Thread ID - " << t.first << " | Total Number of words - "
+             << t.second << std::endl;
     }
 
     std::cout << "\n\n" << std::endl;
