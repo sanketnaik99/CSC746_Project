@@ -9,7 +9,7 @@
 #include <map>
 #include <omp.h>
 #include "likwid-stuff.h"
-#include <cstring>
+#include <boost/algorithm/string.hpp>
 
 
 void getStats(std::map<std::string, int>& M)
@@ -96,9 +96,10 @@ int main(int argc, char ** argv){
             std::string word;
 
             int thread_id = omp_get_thread_num();
-
-            while (getline(iss, word, ' ')) {
-
+            vector<string> result;
+            boost::split(result, input, boost::is_any_of(" "));
+            for (int i = 0; i < result.size(); i++) {
+                word = result[i];
                 std::map<std::string, int>::iterator it = wordMap.find(word); 
 
                 if (it == wordMap.end()){
