@@ -43,6 +43,8 @@ void getStats(std::map<std::string, int>& M)
         it2++;
     }
     std::cout << "\n" << std::endl;
+
+    return;
 }
 
 
@@ -128,6 +130,7 @@ int main(int argc, char ** argv){
     std::cout << "\n Elapsed time is : " << elapsed.count() << std::setprecision(8) << " " << std::endl;
 
     std::cout << "\n\nWork Done by Threads - " << std::endl;
+
     auto it = threadWorkCount.begin();
     while (it != threadWorkCount.end()) {
         std::cout << "Thread ID - " << it->first << " | Total Number of lines - "
