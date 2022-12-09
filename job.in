@@ -24,5 +24,6 @@ for t in 1 2 4 8 16
         echo "Current Number of Threads = $t"
         echo "Current Dataset File = $FILE" 
         srun -n 1  ./omp_count_words $FILE
+        sleep 2
     done 
 done
