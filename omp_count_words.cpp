@@ -96,7 +96,9 @@ int main(int argc, char ** argv){
 
             int thread_id = omp_get_thread_num();
 
-            while (iss >> word){
+            do{
+                iss >> word;
+                
                 std::map<std::string, int>::iterator it = wordMap.find(word); 
 
                 if (it == wordMap.end()){
@@ -113,7 +115,7 @@ int main(int argc, char ** argv){
                     it2->second = it2->second + 1;
                 }
 
-            }
+            } while (iss);
 
         }
     }
