@@ -4,7 +4,8 @@ export OMP_PROC_BIND=spread
 export OMP_SCHEDULE=static
 # export OMP_SCHEDULE=dynamic
 
-for t in 1 2 4 8 16
+for t in 1 2
+#for t in 1 2 4 8 16
     do
     for FILE in ../data/*
         do
