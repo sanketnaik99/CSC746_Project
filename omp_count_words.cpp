@@ -98,7 +98,7 @@ int main(int argc, char ** argv){
 
             do{
                 iss >> word;
-                
+
                 std::map<std::string, int>::iterator it = wordMap.find(word); 
 
                 if (it == wordMap.end()){
@@ -135,7 +135,7 @@ int main(int argc, char ** argv){
 
     auto it = threadWorkCount.begin();
     while (it != threadWorkCount.end()) {
-        std::cout << "Thread ID - " << it->first << " | Total Number of lines - "
+        std::cout << "Thread ID - " << it->first << " | Total Number of word - "
              << it->second << std::endl;
         it++;
     }
