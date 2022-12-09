@@ -96,7 +96,7 @@ int main(int argc, char ** argv){
             std::string word;
 
             int thread_id = omp_get_thread_num();
-            vector<string> result;
+            std::vector<std::string> result;
             boost::split(result, input, boost::is_any_of(" "));
             for (int i = 0; i < result.size(); i++) {
                 word = result[i];
