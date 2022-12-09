@@ -108,12 +108,12 @@ int main(int argc, char ** argv){
                 }
 
                 // Calculate the work done by each thread
-                std::map<int, int>::iterator it2 = threadWorkCount.find(thread_id);
-                if (it2 == threadWorkCount.end()){
-                    threadWorkCount.insert({thread_id, 1});
-                } else{
-                    it2->second = it2->second + 1;
-                }
+                // std::map<int, int>::iterator it2 = threadWorkCount.find(thread_id);
+                // if (it2 == threadWorkCount.end()){
+                //     threadWorkCount.insert({thread_id, 1});
+                // } else{
+                //     it2->second = it2->second + 1;
+                // }
 
             }
 
