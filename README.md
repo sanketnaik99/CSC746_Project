@@ -73,16 +73,13 @@ make
 # make the job bash script an executable
 chmod +x ./job-openmp
 
-# Set the desired concurrency level
-export OMP_NUM_THREADS=1
-
-# Run the job - this will run the program on all 4 datasets
+# Run the job - this will run the program on all 4 datasets and all concurrency levels
 ./job-openmp
 ```
 
 ### Running using dynamic thread scheduling
 
-To run the program using dynamic thread scheduling, modify the job.in file as follows
+To run the program using dynamic thread scheduling, modify the `job.in` file as follows
 
 ```bash
 # Comment out this line
